@@ -1,0 +1,55 @@
+public class contactExtension {
+
+    public Case caseRecord {get; set;}
+    public Contact contactVar {get; set;}
+    public Asset assetVar{get;set;}
+    public CaseArticle caseArticleVar {get;set;}
+    
+    public contactExtension(ApexPages.StandardController stdController){
+        
+        Asset tempAss = (Asset) stdController.getRecord();
+        System.debug(tempAss);
+        
+        assetVar = [Select Id, ContactId, Name, Vehicle_Year__c, Credit_Amount__c   From Asset Where id = :tempAss.Id];
+        system.debug(assetVar.contactId);
+		contactVar = [SELECT Id, Name, Email, Phone,Billing_Frequency__c, Card_Type__c, Credit_Card_Number__c, AccountId, Credit_Card_Exp_Date__c FROM Contact Where id = :assetVar.ContactId];
+    }
+    
+    /*for flow1*/
+    public PageReference launchNewQuote(){
+        
+        update contactVar;
+        
+        System.debug(contactVar.AccountId);
+        PageReference newQuote = new PageReference('/apex/zqu__quoteoption?crmAccountId=' + contactVar.AccountId + '&quoteType=Subscription&stepNumber=1');
+        
+        return newQuote;
+    }
+    
+    /*for flow2*/
+    public PageReference save(){
+        caseRecord = new Case();
+        caseRecord.RecordTypeId = '01250000000aaLb';
+        caseRecord.ContactId = contactVar.Id;
+        caseRecord.AssetId = assetVar.Id;
+        caseRecord.Status = 'Closed';
+        caseRecord.Credit_Amount__c = assetVar.Credit_Amount__c;
+        insert caseRecord;
+        
+        
+        caseArticleVar = new CaseArticle();
+        caseArticleVar.KnowledgeArticleId = 'kA450000000Y3hI';
+        caseArticleVar.CaseId = caseRecord.Id;
+        insert caseArticleVar;
+        
+        /*save the value that the user entered onto record*/
+        update assetVar;
+        /*return to asset page*/
+        return new Pagereference('/'+assetVar.ID);
+
+        
+        
+    }
+    
+    
+}

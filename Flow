@@ -1,0 +1,125 @@
+<apex:page showheader="false" sidebar="false" standardController="Asset" standardStylesheets="false" extensions="contactExtension">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+    <apex:includeScript value="https://code.jquery.com/jquery-3.1.0.min.js" />
+    <apex:includeScript value="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" />
+    
+    <style>
+        .form{
+        margin-top: 50px;
+        }
+        p{
+        margin: 40px 0px 20px 0px;
+        }
+        .theImage{
+        margin-top: 20px;
+        }
+        .form-control{
+        width: 30%;
+        }
+        .btn:hover {
+        color: #ffffff;
+        background: #005383;
+
+        }
+        .col-xs-2{
+        width:17.6666666%
+        }
+        .launchQuote{
+
+        float:left;
+        }
+        
+    </style>
+    <apex:form >
+        <!--<apex:actionFunction name="someName" action="{!launchNewQuote}" reRender=""/>-->
+
+        <div class="container">
+            
+            
+            <div id="step1" class="form">
+                <apex:image styleClass="theImage" value="{!$Resource.SiriusxmLogo}"/>
+                <p>I'm glad to hear you're interested in continuing to enjoy SiriusXM in your Infinity vehicle. <br/>
+                    Do you have a few minutes to review our offerings and I can get you up and running with one of services?
+                </p>
+                <div id="step1fields">
+                    <input type="checkbox" /><strong> Yes</strong><br/>
+                    <input type="checkbox" /><strong> No</strong>
+                </div><br/>
+                <button type="button" id="next1stpage" class="btn btn-info">Next</button>
+            </div>
+            
+            <div id="step2" class="form">
+                <apex:image styleClass="theImage" value="{!$Resource.SiriusxmLogo}"/>		
+                <p>
+                    Great, I am just going to confirm some of your information.
+                </p>
+                
+                <div class="form-group" id="step2fields">
+                    <label class="col-xs-2 col-form-label">Name</label>
+                    <div class="col-xs-10">
+                        <apex:inputField styleClass="form-control" value="{!contactVar.name}"/>
+                    </div>
+                    <label class="col-xs-2 col-form-label">Email</label>
+                    <div class="col-xs-10">
+                        <apex:inputField styleClass="form-control" value="{!contactVar.email}"/>
+                    </div>
+                    <label class="col-xs-2 col-form-label">Phone</label>
+                    <div class="col-xs-10">
+                        <apex:inputField styleClass="form-control" value="{!contactVar.phone}"/>
+                    </div> 
+                    <label class="col-xs-2 col-form-label">Vehicle Name</label>
+                    <div class="col-xs-10">
+                        <apex:inputField styleClass="form-control" value="{!assetVar.Name}"/>
+                    </div>   
+                    <label class="col-xs-2 col-form-label">Vehicle Year</label>
+                    <div class="col-xs-10">
+                        <apex:inputField styleClass="form-control" value="{!assetVar.Vehicle_Year__c}"/>
+                    </div>  
+                    <label class="col-xs-2 col-form-label">Credit Card Number</label>
+                    <div class="col-xs-10">
+                        <apex:inputField styleClass="form-control" value="{!contactVar.Credit_Card_Number__c}"/>
+                    </div>
+                    <label class="col-xs-2 col-form-label">Exp Date</label>
+                    <div class="col-xs-10">
+                        <apex:inputField styleClass="form-control" value="{!contactVar.Credit_Card_Exp_Date__c}"/>
+                    </div>  
+                </div>
+                <br/>
+                <br/>
+                <br/>
+
+                
+                <!--<div>
+                    <button onclick="someName()" >Launch New Quote</button>
+                </div>-->
+                
+                <div class="col-xs-10">
+                    <br/>
+                    <apex:commandButton id="launchQuote" styleClass="btn btn-info launchQuote" value="Launch New Quote" action="{!launchNewQuote}"></apex:commandButton>
+                </div>
+            </div>
+            
+        </div>
+    </apex:form>
+    
+    
+    <script>
+    $(document).ready(function(){
+        $("#step2,#step3").hide();
+        $("#next1stpage").click(function(){
+            $("#step1").hide();
+            $("#step2").show();
+        });
+        $("#launchQuote").click(function(){
+            $("#step2").hide();
+        });
+    
+});
+    
+    
+    </script>
+    
+    
+</apex:page>

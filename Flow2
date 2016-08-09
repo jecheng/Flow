@@ -1,0 +1,175 @@
+<apex:page showheader="false" sidebar="false" standardController="Asset"
+           extensions="contactExtension">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+    <apex:includeScript value="https://code.jquery.com/jquery-3.1.0.min.js" />
+    <apex:includeScript value="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" />
+    
+    <style>
+        .form{
+        margin-top: 50px;
+        }
+        p{
+        margin: 40px 0px 20px 0px;
+        }
+        .theImage{
+        margin-top: 20px;
+        }
+        .form-control{
+        width: 30%;
+        }
+        .btn:hover {
+        color: #ffffff;
+        background: #005383;
+        }
+        .col-xs-2{
+        width:17.6666666%
+        }
+        .creditAmount{
+        padding-left: 0px;
+        }
+        
+        
+    </style>
+    <apex:form >
+        <!--<apex:actionFunction name="someName" action="{!launchNewQuote}" reRender=""/>-->
+
+        <div class="container">
+            
+            
+            <div id="step1" class="form">
+                <apex:image styleClass="theImage" value="{!$Resource.SiriusxmLogo}"/>
+                <p>I'm sorry to hear that you are having challenges with your SiriusXM service. <br/>
+                    Do you have a few minutes to let me look further into your account?
+                </p>
+                <div id="step1fields">
+                    <input type="checkbox" /><strong> Yes</strong><br/>
+                    <input type="checkbox" /><strong> No</strong>
+                </div><br/>
+                <button type="button" id="next1stpage" class="btn btn-info">Next</button>
+            </div>
+            
+            <div id="step2" class="form">
+                <apex:image styleClass="theImage" value="{!$Resource.SiriusxmLogo}"/>		
+                <p>
+                    Can I confirm your Infinity vehicle year?
+                </p>
+                
+                <div class="form-group" id="step2fields">
+                    <label class="col-xs-2 col-form-label">Vehicle Year</label>
+                    <div class="col-xs-10">
+                        <apex:inputField styleClass="form-control" value="{!assetVar.Vehicle_Year__c}"/>
+                    </div>  
+                <br/>
+            	<br/>
+                <br/>
+                <br/>    
+                     <div class="col-xs-10">
+                       <input type="checkbox" /><strong> Yes</strong><br/>
+                    	<input type="checkbox" /><strong> No</strong>
+                    </div> 
+                     
+                </div>
+               <br/>
+                <br/>  
+                <button type="button" id="next2ndpage" class="btn btn-info">Next</button>
+            </div>
+             <div id="step3" class="form">
+                <apex:image styleClass="theImage" value="{!$Resource.SiriusxmLogo}"/>		
+                <p>
+                    Service Bulletin - Firmware update for 2013+ Infinity vehicles
+                </p>
+                <a href="https://na3.salesforce.com/knowledge/publishing/articleOnlineDetail.apexp?id=kA450000000Y3hI&lang=en_US
+"><p>Service Bulletin - Firmware update KB Article</p></a>
+
+                <button type="button" id="next3rdpage" class="btn btn-info">Next</button> 
+            </div>
+            <div id="step4" class="form">
+                <apex:image styleClass="theImage" value="{!$Resource.SiriusxmLogo}"/>		
+                <p>
+                    In addition providing this update I'd be happy to offer a credit for the past month <br/>
+                    of service to your account if that is acceptable?
+                </p>
+                <div class="form-group" id="step4fields">
+                    <input type="checkbox" /><strong> Yes</strong><br/>
+                    <input type="checkbox" /><strong> No</strong>
+                </div>
+                <button type="button" id="next4thpage" class="btn btn-info">Next</button> 
+            </div>
+            <div id="step5" class="form">
+                <apex:image styleClass="theImage" value="{!$Resource.SiriusxmLogo}"/>		
+                <p>
+                    I've added the credit to your account. Is there anything else I can assist you with today?
+                </p>
+                <div class="form-group" id="step5fields">
+                    <input type="checkbox" /><strong> Yes</strong><br/>
+                    <input type="checkbox" /><strong> No</strong>
+                </div>
+                <button type="button" id="next5thpage" class="btn btn-info">Next</button> 
+            </div>
+             <div id="step6" class="form">
+                <apex:image styleClass="theImage" value="{!$Resource.SiriusxmLogo}"/>		
+                <p>
+                    
+                </p>
+                <div class="form-group" id="step6fields">
+                    <label class="col-xs-2 col-form-label creditAmount">Credit Amount</label>
+                    <div class="col-xs-10 creditAmount">
+                        <apex:inputField styleClass="form-control" value="{!assetVar.Credit_Amount__c }"/>
+                    </div>  
+                </div>
+                 <br/>
+                 <br/>
+                 <br/>
+                 <br/>
+                <button type="button" id="next6thpage" class="btn btn-info">Next</button> 
+            </div>
+             <div id="step7" class="form">
+                <apex:image styleClass="theImage" value="{!$Resource.SiriusxmLogo}"/>		   
+                <p>
+                </p>
+                <div class="form-group" id="step5fields">
+                    <br/>
+                    
+                </div>
+                 <apex:commandButton action="{!save}" id="next7thpage" value="Done"/> 
+            </div>
+        </div>
+    </apex:form>
+    
+    
+    <script>
+    $(document).ready(function(){
+        $("#step2,#step3,#step4,#step5,#step6,#step7").hide();
+        $("#next1stpage").click(function(){
+            $("#step1").hide();
+            $("#step2").show();
+        });
+        $("#next2ndpage").click(function(){
+            $("#step2").hide();
+            $("#step3").show();
+        });
+        $("#next3rdpage").click(function(){
+        	$("#step3").hide();
+            $("#step4").show();
+        });
+        $("#next4thpage").click(function(){
+        	$("#step4").hide();
+            $("#step5").show();
+        });
+        $("#next5thpage").click(function(){
+        	$("#step5").hide();
+            $("#step6").show();
+        });
+        $("#next6thpage").click(function(){
+        	$("#step6").hide();
+            $("#step7").show();
+        });
+});
+    
+    
+    </script>
+    
+    
+</apex:page>
