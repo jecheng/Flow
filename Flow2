@@ -1,4 +1,4 @@
-<apex:page showheader="false" sidebar="false" standardController="Asset"
+<apex:page title="Flow1" showheader="false" sidebar="false" standardController="Asset"
            extensions="contactExtension">
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
@@ -51,7 +51,7 @@
             </div>
             
             <div id="step2" class="form">
-                <apex:image styleClass="theImage" value="{!$Resource.SiriusxmLogo}"/>		
+                <apex:image styleClass="theImage" value="{!$Resource.SiriusxmLogo}"/>       
                 <p>
                     Can I confirm your Infinity vehicle year?
                 </p>
@@ -62,12 +62,12 @@
                         <apex:inputField styleClass="form-control" value="{!assetVar.Vehicle_Year__c}"/>
                     </div>  
                 <br/>
-            	<br/>
+                <br/>
                 <br/>
                 <br/>    
                      <div class="col-xs-10">
                        <input type="checkbox" /><strong> Yes</strong><br/>
-                    	<input type="checkbox" /><strong> No</strong>
+                        <input type="checkbox" /><strong> No</strong>
                     </div> 
                      
                 </div>
@@ -76,17 +76,35 @@
                 <button type="button" id="next2ndpage" class="btn btn-info">Next</button>
             </div>
              <div id="step3" class="form">
-                <apex:image styleClass="theImage" value="{!$Resource.SiriusxmLogo}"/>		
+                <apex:image styleClass="theImage" value="{!$Resource.SiriusxmLogo}"/>       
                 <p>
                     Service Bulletin - Firmware update for 2013+ Infinity vehicles
                 </p>
-                <a href="https://na3.salesforce.com/knowledge/publishing/articleOnlineDetail.apexp?id=kA450000000Y3hI&lang=en_US
-"><p>Service Bulletin - Firmware update KB Article</p></a>
+                 
+                 <A HREF="#" onClick="testOpenSubtab();return false">Service Bulletin - Firmware update KB Article</A>
+                <apex:includeScript value="/support/console/22.0/integration.js"/>
+                 <script type="text/javascript">
+                    function testOpenSubtab() {
+                        //First find the ID of the current primary tab to close it
+                        sforce.console.getEnclosingPrimaryTabId(openSubtab);
+                    }
+                    
+                    var openSubtab = function openSubtab(result) {
+                        //Now that we have the primary tab ID, we can open a new subtab in it
+                        var primaryTabId = result.id;
+                        sforce.console.openSubtab(primaryTabId,'/knowledge/publishing/articleOnlineDetail.apexp?id=kA450000000Y3hI&lang=en_US',
+                                                  true,'Service Bulletin - Firmware update KB Article',null);
+                    };
+                
+                 </script>
+
+
+                <br/> <br/> <br/> 
 
                 <button type="button" id="next3rdpage" class="btn btn-info">Next</button> 
             </div>
             <div id="step4" class="form">
-                <apex:image styleClass="theImage" value="{!$Resource.SiriusxmLogo}"/>		
+                <apex:image styleClass="theImage" value="{!$Resource.SiriusxmLogo}"/>       
                 <p>
                     In addition providing this update I'd be happy to offer a credit for the past month <br/>
                     of service to your account if that is acceptable?
@@ -98,7 +116,7 @@
                 <button type="button" id="next4thpage" class="btn btn-info">Next</button> 
             </div>
             <div id="step5" class="form">
-                <apex:image styleClass="theImage" value="{!$Resource.SiriusxmLogo}"/>		
+                <apex:image styleClass="theImage" value="{!$Resource.SiriusxmLogo}"/>       
                 <p>
                     I've added the credit to your account. Is there anything else I can assist you with today?
                 </p>
@@ -109,7 +127,7 @@
                 <button type="button" id="next5thpage" class="btn btn-info">Next</button> 
             </div>
              <div id="step6" class="form">
-                <apex:image styleClass="theImage" value="{!$Resource.SiriusxmLogo}"/>		
+                <apex:image styleClass="theImage" value="{!$Resource.SiriusxmLogo}"/>       
                 <p>
                     
                 </p>
@@ -126,7 +144,7 @@
                 <button type="button" id="next6thpage" class="btn btn-info">Next</button> 
             </div>
              <div id="step7" class="form">
-                <apex:image styleClass="theImage" value="{!$Resource.SiriusxmLogo}"/>		   
+                <apex:image styleClass="theImage" value="{!$Resource.SiriusxmLogo}"/>          
                 <p>
                 </p>
                 <div class="form-group" id="step5fields">
@@ -151,19 +169,19 @@
             $("#step3").show();
         });
         $("#next3rdpage").click(function(){
-        	$("#step3").hide();
+            $("#step3").hide();
             $("#step4").show();
         });
         $("#next4thpage").click(function(){
-        	$("#step4").hide();
+            $("#step4").hide();
             $("#step5").show();
         });
         $("#next5thpage").click(function(){
-        	$("#step5").hide();
+            $("#step5").hide();
             $("#step6").show();
         });
         $("#next6thpage").click(function(){
-        	$("#step6").hide();
+            $("#step6").hide();
             $("#step7").show();
         });
 });

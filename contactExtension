@@ -12,7 +12,7 @@ public class contactExtension {
         
         assetVar = [Select Id, ContactId, Name, Vehicle_Year__c, Credit_Amount__c   From Asset Where id = :tempAss.Id];
         system.debug(assetVar.contactId);
-		contactVar = [SELECT Id, Name, Email, Phone,Billing_Frequency__c, Card_Type__c, Credit_Card_Number__c, AccountId, Credit_Card_Exp_Date__c FROM Contact Where id = :assetVar.ContactId];
+        contactVar = [SELECT Id, Name, Email, Phone,Billing_Frequency__c, Card_Type__c, Credit_Card_Number__c, AccountId, Credit_Card_Exp_Date__c FROM Contact Where id = :assetVar.ContactId];
     }
     
     /*for flow1*/
@@ -34,6 +34,7 @@ public class contactExtension {
         caseRecord.AssetId = assetVar.Id;
         caseRecord.Status = 'Closed';
         caseRecord.Credit_Amount__c = assetVar.Credit_Amount__c;
+        caseRecord.Subject = 'Infinity InTuition Firmware Update Process';
         insert caseRecord;
         
         

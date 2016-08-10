@@ -51,7 +51,7 @@
             </div>
             
             <div id="step2" class="form">
-                <apex:image styleClass="theImage" value="{!$Resource.SiriusxmLogo}"/>		
+                <apex:image styleClass="theImage" value="{!$Resource.SiriusxmLogo}"/>       
                 <p>
                     Great, I am just going to confirm some of your information.
                 </p>
